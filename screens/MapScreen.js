@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { MapView } from 'expo';
 import * as actions from '../actions';
-import { Button } from 'react-native-elements';
+import { Button, Icon, SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 class MapScreen extends Component {
+  static navigationOptions = {
+    title: 'Map',
+    tabBarIcon: ({ tintColor }) => {
+      return <Icon name="flight" size={30} color={tintColor} />;
+    }
+  }
+
   state = {
     mapLoaded: false,
     region: {
@@ -42,15 +49,22 @@ class MapScreen extends Component {
 
     return (
       <View style={{ flex: 1 }}>
+
         <MapView
           region={this.state.region}
           style={{ flex: 1 }} 
           onRegionChangeComplete={this.onRegionChangeComplete}
         />
-        <View style={styles.buttonContainer}>
+          <SearchBar
+            placeholder="Tìm gì đi bạn"
+            round={true}
+            containerStyle={styles.buttonTopContainer}
+            cancelButtonTitle="Xoá"
+          />
+        <View style={styles.buttonBottomContainer}>
           <Button 
             large
-            title="Search this area"
+            title="Tìm Vùng Này"
             backgroundColor="#009688"
             icon={{ name: 'search' }}
             onPress={this.onButtonPress}
@@ -62,7 +76,13 @@ class MapScreen extends Component {
 }
 
 const styles = {
-  buttonContainer: {
+  buttonTopContainer: {
+    position: 'absolute',
+    top: 30,
+    left: 20,
+    right: 20,
+  },
+  buttonBottomContainer: {
     position: 'absolute',
     bottom: 20,
     left: 0,

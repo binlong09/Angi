@@ -5,7 +5,8 @@ import {
   PanResponder,
   Dimensions,
   LayoutAnimation,
-  UIManager
+  UIManager,
+  Platform
 } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -16,7 +17,8 @@ class Swipe extends Component {
   static defaultProps = {
     data: [],
     onSwipeRight: () => {},
-    onSwipeLeft: () => {}
+    onSwipeLeft: () => {},
+    keyProp: 'id'
   }
 
   constructor(props) {
@@ -100,7 +102,7 @@ class Swipe extends Component {
       if (i === this.state.index) {
         return (
           <Animated.View
-            key={item.id}
+            key={item[this.props.keyProp]}
             style={[this.getCardStyle(), styles.cardStyle, { zIndex: 99 }]}
             {...this.state.panResponder.panHandlers}
           >
@@ -111,8 +113,8 @@ class Swipe extends Component {
 
       return (
         <Animated.View
-          key={item.id}
-          style={[styles.cardStyle, { top: 10 * (i - this.state.index), zIndex: 5 }]}
+          key={item[this.props.keyProp]}
+          style={[styles.cardStyle, { top: 10 * (i - this.state.index), zIndex: -i }]}
         >
           {this.props.renderCard(item)}
         </Animated.View>
@@ -132,7 +134,7 @@ class Swipe extends Component {
 const styles = {
   cardStyle: {
     position: 'absolute',
-    width: SCREEN_WIDTH
+    width: SCREEN_WIDTH,   
   }
 };
 
