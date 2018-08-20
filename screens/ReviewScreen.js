@@ -6,7 +6,7 @@ import { MapView } from 'expo';
 
 class ReviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Review Jobs",
+    title: "Review FOODs",
     headerRight: (
       <Button
         title="Settings"
@@ -20,12 +20,12 @@ class ReviewScreen extends Component {
     }
   });
 
-  renderLikedJobs() {
-    return this.props.likedJobs.map(job => {
+  renderLikedFOODs() {
+    return this.props.likedFOODs.map(FOOD => {
       const { 
         company, formattedRelativeTime, url,
-        longitude, latitude, jobtitle, jobkey
-      } = job;
+        longitude, latitude, FOODtitle, FOODkey
+      } = FOOD;
       const initialRegion = {
         longitude,
         latitude,
@@ -34,7 +34,7 @@ class ReviewScreen extends Component {
       };
 
       return (
-        <Card title={jobtitle} key={jobkey}>
+        <Card title={FOODtitle} key={FOODkey}>
           <View style={{ height: 200 }}>
             <MapView
               style={{ flex: 1 }}
@@ -60,7 +60,7 @@ class ReviewScreen extends Component {
   render() {
     return (
       <ScrollView>
-        {this.renderLikedJobs()}
+        {this.renderLikedFOODs()}
       </ScrollView>
     );
   }
@@ -79,7 +79,7 @@ const styles = {
 }
 
 function mapStateToProps(state) {
-  return { likedJobs: state.likedJobs };
+  return { likedFOODs: state.likedFOODs };
 }
 
 export default connect(mapStateToProps)(ReviewScreen);

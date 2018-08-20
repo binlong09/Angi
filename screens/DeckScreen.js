@@ -3,27 +3,29 @@ import { View, Text, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
 import { Card, Button, Icon } from 'react-native-elements';
+import CCard from '../components/CCard';
+import CardStack from '../components/CardStack';
 import Swipe from '../components/Swipe';
 import * as actions from '../actions';
 
 class DeckScreen extends React.Component {
   static navigationOptions = {
-    title: 'Jobs',
+    title: 'foods',
     tabBarIcon: ({ tintColor }) => {
       return <Icon name="description" size={30} color={tintColor} />;
     }
   }
 
-  renderCard(job) {
+  renderCard(food) {
     const initialRegion = {
-      longitude: job.longitude,
-      latitude: job.latitude,
-      latitudeDelta: 0.045,
-      longitudeDelta: 0.02
+      longitude: food.longitude,
+      latitude: food.latitude,
+      latitudeDelta: 0.006759003698505239,
+      longitudeDelta: 0.01006056948800449
     }
 
     return (
-      <Card title={job.jobtitle}>
+      <Card title={food.Name} titleStyle={{ flexWrap: "wrap" }} >
         <View style={{ height: 300 }}>
           <MapView
             scrollEnabled={false}
@@ -32,14 +34,12 @@ class DeckScreen extends React.Component {
             initialRegion={initialRegion}
           >
           </MapView>
-        </View>
-        
+        </View>          
         <View style={styles.detailWrapper}>
-          <Text>{job.company}</Text>
-          <Text>{job.formattedRelativeTime}</Text>
+          <Text>{food.AvgRatingText}/10 trong tổng cộng {food.TotalReviews} đánh giá</Text>
         </View>
         <Text>
-          {job.snippet.replace(/<b>/g, '').replace(/<\/b>/g, '')}
+          {food.Address}
         </Text>
       </Card>
     );
@@ -47,7 +47,7 @@ class DeckScreen extends React.Component {
 
   renderNoMoreCards = () => { //bind this to deckscreen so that this.props works.
     return (
-      <Card title="No more jobs">
+      <Card title="No more foods">
         <Button
           title="Back To Map"
           large
@@ -63,11 +63,11 @@ class DeckScreen extends React.Component {
     return (
       <View style={{ marginTop: 10 }}>
         <Swipe
-          data={this.props.jobs}
+          data={this.props.foods}
           renderCard={this.renderCard}
           renderNoMoreCards={this.renderNoMoreCards}
-          onSwipeRight={job => this.props.likeJob(job)}
-          keyProp="jobkey"
+          onSwipeRight={food => this.props.likefood(food)}
+          keyProp="id"
         />
       </View>
     );
@@ -79,12 +79,22 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 10
+  },
+  container: {
+    height:60,
+    flexDirection:'row',
+    paddingTop:10,
+    justifyContent: 'space-between',
+    alignItems:'center',
+    backgroundColor: '#fff',
+    borderBottomWidth:1,
+    borderColor:'rgba(0,0,0,0.1)'
   }
 }
 
-function mapStateToProps({ jobs }) {
-  console.log(jobs)
-  return { jobs: jobs.results };
+function mapStateToProps({ foods }) {
+  console.log(foods)
+  return { foods };
 }
 
 export default connect(mapStateToProps, actions)(DeckScreen);

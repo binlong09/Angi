@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'React';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { MapView } from 'expo';
 import * as actions from '../actions';
@@ -16,10 +16,10 @@ class MapScreen extends Component {
   state = {
     mapLoaded: false,
     region: {
-      longitude: -122,
-      latitude: 37,
-      longitudeDelta: 0.04,
-      latitudeDelta: 0.09
+      longitude: 105.85165332261896,
+      latitude: 21.028083191648676,
+      longitudeDelta: 0.006759003698505239,
+      latitudeDelta: 0.01006056948800449
     }
   }
 
@@ -30,10 +30,11 @@ class MapScreen extends Component {
   // callback function so = () =>
   onRegionChangeComplete = (region) => {
     this.setState({ region });
+    console.log(region);
   }
 
   onButtonPress = () => {
-    this.props.fetchJobs(this.state.region, () => {
+    this.props.fetchFoods(this.state.region, () => {
       this.props.navigation.navigate('deck');
     });
   }
@@ -53,11 +54,11 @@ class MapScreen extends Component {
         <MapView
           region={this.state.region}
           style={{ flex: 1 }} 
+          showLoading={true}
           onRegionChangeComplete={this.onRegionChangeComplete}
         />
           <SearchBar
             placeholder="Tìm gì đi bạn"
-            round={true}
             containerStyle={styles.buttonTopContainer}
             cancelButtonTitle="Xoá"
           />

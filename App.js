@@ -30,7 +30,7 @@ export default class App extends React.Component {
               tabBarIcon: ({ tintColor }) => {
                 return <Icon name="favorite" size={30} color={tintColor} />;
               },
-              title: 'Review Jobs'
+              title: 'Review FOODs'
             }
           }
         }, {
