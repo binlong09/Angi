@@ -28,9 +28,9 @@ export default class App extends React.Component {
             }),
             navigationOptions: {
               tabBarIcon: ({ tintColor }) => {
-                return <Icon name="favorite" size={30} color={tintColor} />;
+                return <Icon name="star" size={30} color={tintColor} />;
               },
-              title: 'Review FOODs'
+              title: 'Liked Foods'
             }
           }
         }, {

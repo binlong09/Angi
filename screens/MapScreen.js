@@ -58,7 +58,7 @@ class MapScreen extends Component {
           onRegionChangeComplete={this.onRegionChangeComplete}
         />
           <SearchBar
-            placeholder="Tìm gì đi bạn"
+            placeholder="Kéo bản đồ hoặc tìm ở đây"
             containerStyle={styles.buttonTopContainer}
             cancelButtonTitle="Xoá"
           />

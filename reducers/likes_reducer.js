@@ -9,7 +9,7 @@ export default function(state = [], action) {
     case LIKE_FOOD:
       return _.uniqBy([
         action.payload, ...state
-      ], 'FOODkey')
+      ], 'id')
     case CLEAR_LIKED_FOODS:
       return [];
     default:

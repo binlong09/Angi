@@ -6,7 +6,7 @@ import { MapView } from 'expo';
 
 class ReviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Review FOODs",
+    title: "Saved Foods",
     headerRight: (
       <Button
         title="Settings"
@@ -20,36 +20,50 @@ class ReviewScreen extends Component {
     }
   });
 
-  renderLikedFOODs() {
-    return this.props.likedFOODs.map(FOOD => {
+  renderLikedFoods() {
+    console.log(this.props.likedFoods)
+    return this.props.likedFoods.map(food => {
       const { 
-        company, formattedRelativeTime, url,
-        longitude, latitude, FOODtitle, FOODkey
-      } = FOOD;
+        AvgRatingText, TotalReviews, Distance, Address,
+        Longitude, Latitude, id, Name
+      } = food;
       const initialRegion = {
-        longitude,
-        latitude,
-        latitudeDelta: 0.045,
-        longitudeDelta: 0.02
+        longitude: Longitude,
+        latitude: Latitude,
+        latitudeDelta: 0.0009162711809089785,
+        longitudeDelta: 0.0006155789920399002
       };
+      const coordinate = {
+        longitude: Longitude,
+        latitude: Latitude
+      }
 
       return (
-        <Card title={FOODtitle} key={FOODkey}>
+        <Card title={Name} key={id}>
           <View style={{ height: 200 }}>
             <MapView
               style={{ flex: 1 }}
               cacheEnabled={Platform.OS == 'android'}
-              scrollEnabled={false}
+              scrollEnabled={true}
               initialRegion={initialRegion}
-            />
+            >
+              <MapView.Marker
+                coordinate={coordinate}
+                title={Name}
+                description={Address}
+              />
+            </MapView>
             <View style={styles.detailWrapper}>
-              <Text style={styles.italics}>{company}</Text>
-              <Text style={styles.italics}>{formattedRelativeTime}</Text>
+              <Text style={styles.italics}>{AvgRatingText}/10 trong {TotalReviews} đánh giá</Text>
+              <View style={{ flexDirection: 'row' }} >
+                <Icon name="location-on" size={15} />
+                <Text>{Distance.toFixed(1)}km</Text>
+              </View>
             </View>
             <Button
               title="Apply Now!"
               backgroundColor="#03A9F4"
-              onPress={() => Linking.openURL(url)}
+              // onPress={() => Linking.openURL(url)}
             />
           </View>
         </Card>
@@ -60,7 +74,7 @@ class ReviewScreen extends Component {
   render() {
     return (
       <ScrollView>
-        {this.renderLikedFOODs()}
+        {this.renderLikedFoods()}
       </ScrollView>
     );
   }
@@ -79,7 +93,8 @@ const styles = {
 }
 
 function mapStateToProps(state) {
-  return { likedFOODs: state.likedFOODs };
+  console.log(state);
+  return { likedFoods: state.likedFoods };
 }
 
 export default connect(mapStateToProps)(ReviewScreen);
