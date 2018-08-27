@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "FOODs",
-    "description": "This project is really great.",
-    "slug": "FOODs",
+    "name": "Angi",
+    "description": "Biết ăn gì bây giờ đây?",
+    "slug": "An-gi-bay-gio",
     "privacy": "public",
     "sdkVersion": "28.0.0",
     "platforms": ["ios", "android"],
@@ -21,10 +21,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nghiadang.angibaygio"
     },
     "androidStatusBar": {
-      "backgroundColor": "#C2185B"
+      "backgroundColor": "#C2185B",
+    },
+    "android": {
+      "package": "com.nghiadang.angibaygio",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBNA1mPh5fyls81fp4LzwJOIUYEiOedE2s"
+        }
+      }
     }
   }
 }

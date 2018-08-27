@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, Platform, Image } from 'react-native';
+import { View, Text, Platform, Image, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { MapView } from 'expo';
+// import { MapView } from 'expo';
 import { Card, Button, Icon } from 'react-native-elements';
 import CCard from '../components/CCard';
 import CardStack from '../components/CardStack';
 import Swipe from '../components/Swipe';
 import * as actions from '../actions';
+
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class DeckScreen extends React.Component {
   static navigationOptions = {
@@ -25,7 +28,7 @@ class DeckScreen extends React.Component {
     }
 
     return (
-      <Card title={food.Name} titleStyle={{ flexWrap: "wrap" }} >
+      <Card title={food.Name} titleStyle={{ flexWrap: "wrap" }} containerStyle={styles.cardContainer} >
         <View>
           {/* <MapView
             scrollEnabled={false}
@@ -66,13 +69,14 @@ class DeckScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ marginTop: 10 }}>
+      // <View style={{ marginTop: 10 }}>
+      <View style={styles.container} >
         <Swipe
           data={this.props.foods}
           renderCard={this.renderCard}
           renderNoMoreCards={this.renderNoMoreCards}
           onSwipeRight={food => this.props.likeFood(food)}
-          keyProp="id"
+          keyProp="Id"
         />
       </View>
     );
@@ -86,18 +90,23 @@ const styles = {
     marginBottom: 10
   },
   container: {
-    height:60,
+    // height: Platform.OS === 'android' ? 60 : 60,
+    flex: 1,
     flexDirection:'row',
-    paddingTop:10,
+    paddingTop: 20,
     justifyContent: 'space-between',
-    alignItems:'center',
-    backgroundColor: '#fff',
-    borderBottomWidth:1,
-    borderColor:'rgba(0,0,0,0.1)'
+    alignItems:'flex-start',
+    backgroundColor: '#E8E8E8',
+  },
+  cardContainer: {
+    borderRadius: 8,
+    marginBottom: 58,
+    height: SCREEN_HEIGHT*0.85,
+    backgroundColor: '#E8E8E8'
   },
   thumbnail: {
-    width: 300,
-    height: 300
+    width: SCREEN_WIDTH*0.82,
+    height: 400
   }
 }
 

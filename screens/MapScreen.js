@@ -56,6 +56,7 @@ class MapScreen extends Component {
           style={{ flex: 1 }} 
           showLoading={true}
           onRegionChangeComplete={this.onRegionChangeComplete}
+          // liteMode
         />
           <SearchBar
             placeholder="Kéo bản đồ hoặc tìm ở đây"
