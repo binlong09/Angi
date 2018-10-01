@@ -43,7 +43,7 @@ class ReviewScreen extends Component {
 
       return (
         <Card title={Name} key={Id}>
-          <View style={{ height: 200 }}>
+          <View style={{ height: 300 }}>
             {Longitude == null ?
               <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={styles.noMap}>Không thể hiển thị bản đồ</Text>
@@ -55,7 +55,6 @@ class ReviewScreen extends Component {
                 cacheEnabled={Platform.OS == 'android'}
                 scrollEnabled={true}
                 initialRegion={initialRegion}
-                liteMode
               >
                 <MapView.Marker
                   coordinate={coordinate}
